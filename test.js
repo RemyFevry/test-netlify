@@ -4,13 +4,10 @@ exports.handler = async (event, context) => {
         // Process the GET request as needed
         const data = fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/002745/26')
             .then((response) => response.json())
-            .then((data) => {
-
-
-                return data["data"].map((d, i) => ({
+            .then((data) =>  data["data"].map((d, i) => ({
     i: Math.round((new Date(d["eta"]) - new Date(d["data_timestamp"])) / (60 * 1000))
-}));
-            });
+}))
+            );
   
         // Return the data as the response
         return {
